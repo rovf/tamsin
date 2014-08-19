@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tamsin</title>
+  <title>Tamsin - <%= yield(:pagename) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%# favicon_link_tag 'fusshuhn_32x32.jpg' %>
+
 </head>
 <body>
 
+<header>
+    <div class="page_logo_area">
+        TAMSIN
+    </div>
+    <% [
+        [:Home, fixed_static_pages_home_path],
+        [:Kontakt, fixed_static_pages_contact_path ]
+       ].each do |darr|
+    %>
+        <%= link_to darr[0].to_s, darr[1], class: (darr[0].to_s == yield(:pagename) ? 'navlink-current' : 'navlink' )  %>
+    <% end %>
+
+</header>
 <%= yield %>
 
 </body>

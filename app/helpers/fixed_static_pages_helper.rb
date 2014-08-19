@@ -1,0 +1,2 @@
+module FixedStaticPagesHelper
+end

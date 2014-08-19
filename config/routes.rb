@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  resources :tags
 
-  root 'home#index'
+  get 'fixed_static_pages/home'
+
+  get 'fixed_static_pages/contact'
+
+  root 'fixed_static_pages#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

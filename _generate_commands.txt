@@ -1,0 +1,33 @@
+rails generate controller FixedStaticPages home contact
+rails generate scaffold Tag name:string:index description:text
+
+
+# Set up <header> in application.html.erb
+# Create app/assets/stylesheets/tamsin.css.scss
+# In application.css, require first scaffolds, then tamsin stylesheet
+
+
+rails generate controller AdminPages adm_login adm_logout
+
+# kind: news musings
+# bodytype: text, html, markdown
+
+rails generate model Writeup kind:string title:string subtitle:string body:text bodytype:string valid_from:datetime valid_to:datetime
+
+rails generate model Customer firstname:string familyname:string:index company:string url:string email:string address:text notes:text
+
+# Join Table
+# http://railscasts.com/episodes/47-two-many-to-many
+rails generate migration customers_tags customer_id:integer tag_id:integer
+# Customer:
+# has_and_belongs_to_many :tag
+# Tag:
+# has_and_belongs_to_many :customer
+
+
+rails generate figaro:install
+
+# Static Pages
+rails generate model UserPages name:string seqno:integer
+# If partials need to be rendered:
+rails generate controller pages
