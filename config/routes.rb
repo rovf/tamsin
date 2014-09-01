@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  match '/herrin', to: 'admin_pages#adm_login_form', via: 'get'
+
+  post 'admin_pages/adm_login'
+
+  post 'admin_pages/adm_logout'
+
   resources :tags
 
   get 'fixed_static_pages/home'

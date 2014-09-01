@@ -5,9 +5,15 @@ rails generate scaffold Tag name:string:index description:text
 # Set up <header> in application.html.erb
 # Create app/assets/stylesheets/tamsin.css.scss
 # In application.css, require first scaffolds, then tamsin stylesheet
+# In production.rb set config.force_ssl = true
 
 
 rails generate controller AdminPages adm_login adm_logout
+
+
+
+
+
 
 # kind: news musings
 # bodytype: text, html, markdown
