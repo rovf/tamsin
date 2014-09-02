@@ -15,12 +15,13 @@
         TAMSIN
     </div>
 
-    <% [
+    <% (((Rails.env.development? && !adm_session?) ? [[:AdmLogin, herrin_path]] : []) +
+       [
         [:Home, fixed_static_pages_home_path],
         [:Kontakt, fixed_static_pages_contact_path ]
-       ].each do |darr|
+       ]).each do |darr|
     %>
-        <%= link_to darr[0].to_s, darr[1], class: (darr[0].to_s == yield(:pagename) ? 'navlink-current' : 'navlink' )  %>
+        <%= link_to darr[0].to_s, darr[1], method: (darr[2]||:get), class: (darr[0].to_s == yield(:pagename) ? 'navlink-current' : 'navlink' )  %>
     <% end %>
     <div id="flash_area">
     <% flash.each do |key, value| %>
@@ -28,8 +29,15 @@
         <div class="alert alert-<%= key %>"><span><%= value %></span></div>
     <% end %>
     </div>
+    <canvas height="6px"></canvas>
 </header>
 <%= yield %>
-
+<footer>
+    <% if adm_session? %>
+        <div class="adm_footer_area">
+            <%= link_to 'Ende', admin_pages_adm_logout_path, method: :post, class: 'admlink' %> <%= link_to 'Admin Home', '#', class: 'admlink' %>
+        </div>
+    <% end %>
+</footer>
 </body>
 </html>

@@ -7,11 +7,19 @@ rails generate scaffold Tag name:string:index description:text
 # In application.css, require first scaffolds, then tamsin stylesheet
 # In production.rb set config.force_ssl = true
 
+# In ApplicationController:
+# protect_from_forgery with: :exception
+# include AdminPagesHelper
+
 rails generate controller AdminPages adm_login adm_logout
 
 rails generate figaro:install
 
-
+# Take secrets.yml out of .gitignore, but in secrets.yml, verify that for production
+#   secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+# For Heroku, SECRET_KEY_BASE is set automatically.
+# Make sure that config/application.yml is in .gitignore. This contains secret environment
+# variables as name: value , accessible via figaro.
 
 
 
