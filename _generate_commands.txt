@@ -7,8 +7,9 @@ rails generate scaffold Tag name:string:index description:text
 # In application.css, require first scaffolds, then tamsin stylesheet
 # In production.rb set config.force_ssl = true
 
-
 rails generate controller AdminPages adm_login adm_logout
+
+rails generate figaro:install
 
 
 
@@ -30,8 +31,6 @@ rails generate migration customers_tags customer_id:integer tag_id:integer
 # Tag:
 # has_and_belongs_to_many :customer
 
-
-rails generate figaro:install
 
 # Static Pages
 rails generate model UserPages name:string seqno:integer

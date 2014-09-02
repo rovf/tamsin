@@ -14,6 +14,7 @@
     <div class="page_logo_area">
         TAMSIN
     </div>
+
     <% [
         [:Home, fixed_static_pages_home_path],
         [:Kontakt, fixed_static_pages_contact_path ]
@@ -21,7 +22,12 @@
     %>
         <%= link_to darr[0].to_s, darr[1], class: (darr[0].to_s == yield(:pagename) ? 'navlink-current' : 'navlink' )  %>
     <% end %>
-
+    <div id="flash_area">
+    <% flash.each do |key, value| %>
+        <canvas height="6px"></canvas>
+        <div class="alert alert-<%= key %>"><span><%= value %></span></div>
+    <% end %>
+    </div>
 </header>
 <%= yield %>
 
