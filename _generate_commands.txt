@@ -21,7 +21,14 @@ rails generate figaro:install
 # Make sure that config/application.yml is in .gitignore. This contains secret environment
 # variables as name: value , accessible via figaro.
 
+# If password fiels in forms are NOT named 'password', add the name to the
+# parameter filter list in config/initializers/filter_parameter_logging.rb
 
+# Prepare Uploader:
+# Add gem carrierwave
+rails generate uploader Static # creates app/uploaders/static_uploader.rb
+mkdir app/views/pages # For static pages
+# rails generate model
 
 
 # kind: news musings

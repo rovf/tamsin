@@ -4,11 +4,13 @@ Rails.application.routes.draw do
   post 'admin_pages/adm_login'
   post 'admin_pages/adm_logout'
   get 'admin_pages/home'
+  match 'admin_pages/adm_upload_selected', to: 'admin_pages#adm_upload_selected', via: 'post', as: 'adm_upload_selected'
 
   resources :tags
 
   get 'fixed_static_pages/home'
   get 'fixed_static_pages/contact'
+
 
   root 'fixed_static_pages#home'
 

@@ -19,4 +19,9 @@ class AdminPagesController < ApplicationController
       end_adm_session
       redirect_to root_path
   end
+
+  def adm_upload_selected
+      render admin_pages_home_path
+  end
+
 end

@@ -23,6 +23,9 @@ group :development, :test do
 end
 # gem 'sqlite3'
 
+# For uploading
+gem 'carrierwave', '0.10.0'
+
 gem 'random_password_generator', '1.0.0'
 
 # Savely store passwords etc. on Github / Heroku
@@ -78,4 +81,3 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
