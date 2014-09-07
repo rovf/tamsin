@@ -12,7 +12,7 @@
 
 <header>
     <div class="page_logo_area">
-        TAMSIN
+        TAMSIN <%= Rails.env.development? ? '開発版' : '' %>
     </div>
 
     <% (((Rails.env.development? && !adm_session?) ? [[:AdmLogin, herrin_path]] : []) +

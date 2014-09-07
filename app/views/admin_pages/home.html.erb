@@ -5,7 +5,7 @@ This is in admin_pages/home
 <%= form_tag({action: 'adm_upload_selected'}, multipart: true) do |f| %>
     HTML Upload: <%= file_field_tag :upload, {accept: 'text/html', class: 'adm_upload'} %>
     <%= hidden_field_tag :upload_cache %><br>
-    <%= submit_tag 'UPLOAD' %>
+    <%= submit_tag 'UPLOAD', class: 'tamisn_button' %>
 <% end %>
 
 </div>
