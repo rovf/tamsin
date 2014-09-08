@@ -18,6 +18,8 @@ class AdminPagesController < ApplicationController
       end
   end
 
+  after_action :prepare_admin_home_data, only: [:adm_login,:adm_upload_selected]
+
   def adm_login_form
       render 'adm_login'
   end
@@ -39,12 +41,16 @@ class AdminPagesController < ApplicationController
       redirect_to root_path
   end
 
+  def home
+    logger.debug("++++++++++ home")
+  end
+
   # params[:upload].tempfile : name of temporary file
   # params[:upload].original_filename : name of original file
   def adm_upload_selected
       if params[:upload].nil?
         flash.now[:error]='Es wäre schon gut, vor dem Upload eine Datei auszuwählen'
-        render
+        render admin_pages_home_path
       else
         errmsg=nil
         fpath=params[:upload].tempfile
@@ -59,4 +65,10 @@ class AdminPagesController < ApplicationController
       end
   end
 
+private
+
+    def prepare_admin_home_data
+        @pages=Dir["#{AMP_DIR}/*"] # dotfiles automatically excluded
+        logger.debug("+++++++++++ pages #{@pages.to_s}")
+    end
 end

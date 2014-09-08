@@ -35,7 +35,10 @@
 <footer>
     <% if adm_session? %>
         <div class="adm_footer_area">
-            <%= link_to 'Ende', admin_pages_adm_logout_path, method: :post, class: 'admlink' %> <%= link_to 'Admin Home', '#', class: 'admlink' %>
+            <%= link_to 'Ende', admin_pages_adm_logout_path, method: :post, class: 'admlink' %>
+            <% unless yield(:pagename) == 'AdmHome' %>
+                <%= link_to 'Admin Home', admin_pages_home_path, class: 'admlink' %>
+            <% end %>
         </div>
     <% end %>
 </footer>

@@ -40,3 +40,39 @@
 .adm_footer_area {
     padding-top: 24px;
 }
+
+.adm_upload {
+    background-color: #98da4d;
+}
+
+.admbutton {
+    border-style: dotted;
+    border-width: 4px;
+    border-color: #91394d;
+}
+
+$hr_color: #1c1458;
+
+hr {
+  height:26px; border-style: solid;
+  border-color:$hr_color;
+  border-width: 4px 0 0 0; border-radius: 20px;
+
+  &:before {
+    display: block; content: ""; height: 30px;
+    margin-top: -34px;
+    border-style: solid;
+    border-color: $hr_color;
+    border-width: 0 0 4px 0; border-radius: 20px;
+  }
+
+  &:after {
+    clear: both;
+    line-height: 0;
+  }
+}
+
+.before_hr {
+    padding-top: 0px;
+    padding-bottom: 5px;
+}

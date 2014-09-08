@@ -1,11 +1,22 @@
 <% provide :pagename, 'AdmHome' %>
 <div>
-This is in admin_pages/home
 
+<div class="before_hr">
+This is in admin_pages/home
+</div>
+
+<hr>
+<div class="before_hr">
 <%= form_tag({action: 'adm_upload_selected'}, multipart: true) do |f| %>
     HTML Upload: <%= file_field_tag :upload, {accept: 'text/html', class: 'adm_upload'} %>
     <%= hidden_field_tag :upload_cache %><br>
-    <%= submit_tag 'UPLOAD', class: 'tamisn_button' %>
+    <%= submit_tag 'UPLOAD', class: 'admbutton' %>
 <% end %>
-
+</div>
+<hr>
+<% unless @pages.nil? or @pages.count == 0 %>
+    <div class="before_hr">
+    Verfügbare Seiten: <%= @pages.to_s %>
+    </div>
+<% end %>
 </div>
