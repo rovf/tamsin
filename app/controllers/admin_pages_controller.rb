@@ -43,6 +43,7 @@ class AdminPagesController < ApplicationController
 
   def home
     logger.debug("++++++++++ home")
+    @pages=['this','is','still','a','dummy','entry']
   end
 
   # params[:upload].tempfile : name of temporary file
