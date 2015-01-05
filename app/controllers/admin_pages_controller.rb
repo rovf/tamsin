@@ -18,7 +18,8 @@ class AdminPagesController < ApplicationController
       end
   end
 
-  after_action :prepare_admin_home_data, only: [:adm_login,:adm_upload_selected]
+  # can't do after_action here, because this must happen before rendering
+  # after_action :prepare_admin_home_data, only: [:adm_login,:adm_upload_selected]
 
   def adm_login_form
       render 'adm_login'
@@ -30,6 +31,8 @@ class AdminPagesController < ApplicationController
       #   a password to be stored encrypted in the database.
       if [Figaro.env.admpwd_a, Figaro.env.admpwd_7].any? { |pw| pw == params[:admpwd] }
           begin_adm_session
+          prepare_admin_home_data
+          logger.debug('+++++++ rendering '+admin_pages_home_path)
           render admin_pages_home_path
       else
         flash.now[:error]='Ungültiges Administratorpasswort'
@@ -42,8 +45,7 @@ class AdminPagesController < ApplicationController
   end
 
   def home
-    logger.debug("++++++++++ home")
-    @pages=['this','is','still','a','dummy','entry']
+    @pages=Dir["#{AMP_DIR}/*"].select {|entry| !File.directory? entry}
   end
 
   # params[:upload].tempfile : name of temporary file
@@ -51,7 +53,6 @@ class AdminPagesController < ApplicationController
   def adm_upload_selected
       if params[:upload].nil?
         flash.now[:error]='Es wäre schon gut, vor dem Upload eine Datei auszuwählen'
-        render admin_pages_home_path
       else
         errmsg=nil
         fpath=params[:upload].tempfile
@@ -62,8 +63,9 @@ class AdminPagesController < ApplicationController
         unless errmsg.nil?
             flash.now[:error]=errmsg
         end
-        render admin_pages_home_path
       end
+      prepare_admin_home_data
+      render admin_pages_home_path
   end
 
 private

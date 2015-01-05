@@ -1,5 +1,7 @@
 <% provide :pagename, 'AdmHome' %>
 <div>
+    <%# space for debugging %>
+</div>
 
 <div class="before_hr">
 This is in admin_pages/home
@@ -16,7 +18,12 @@ This is in admin_pages/home
 <hr>
 <% unless @pages.nil? or @pages.count == 0 %>
     <div class="before_hr">
-    Verfügbare Seiten: <%= @pages.to_s %>
+    Verfügbare Seiten:
+    <% @pages.each do |fn| %>
+        <br>
+        <!-- img src="/assets/icons/mac_trashcan_full_new.ico" height="24" alt="löschen" title="Datei entfernen" -->
+        <%= image_tag('icons/mac_trashcan_full_new.png', {height:32, alt:'Löschen?'}) %> <span class="fn_list"><%= fn %></span>
+    <% end %>
     </div>
 <% end %>
 </div>
