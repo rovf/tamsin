@@ -47,7 +47,7 @@ rails generate migration customers_tags customer_id:integer tag_id:integer
 # has_and_belongs_to_many :customer
 
 
-# Static Pages
-rails generate model UserPages name:string seqno:integer
+# Static Pages. seqno==0 means: Don't show right now (except in admin)
+rails generate model Userpage filename:string:index linkname:string seqno:integer valid_from:datetime valid_to:datetime
 # If partials need to be rendered:
 rails generate controller pages

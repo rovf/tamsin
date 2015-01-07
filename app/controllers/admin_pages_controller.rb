@@ -79,18 +79,18 @@ class AdminPagesController < ApplicationController
         if File.file?(fpath)
             begin
                 File.delete(fpath)
-                flash.now[:success]="Die Datei #{deleatur} ist entfernt worden"
+                flash[:success]="Die Datei #{deleatur} ist entfernt worden"
             rescue Errno::ENOENT
-                flash.now[:warning]="Die Datei #{deleatur} ist in diesem Moment verschwunden"
+                flash[:warning]="Die Datei #{deleatur} ist in diesem Moment verschwunden"
             rescue Exception => e
-                flash.now[:error]="Exception #{e.class.to_s} : #{e.message}"
+                flash[:error]="Exception #{e.class.to_s} : #{e.message}"
             end
         else
-            flash.now[:warning]="Die Datei #{deleatur} existiert nicht mehr"
+            flash[:warning]="Die Datei #{deleatur} existiert nicht mehr"
         end
       end
       prepare_admin_home_data
-      render admin_pages_home_path
+      redirect_to admin_pages_home_path
   end
 
 private

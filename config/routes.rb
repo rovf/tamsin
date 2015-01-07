@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   get 'admin_pages/home'
   match 'admin_pages/adm_upload_selected', to: 'admin_pages#adm_upload_selected', via: 'post', as: 'adm_upload_selected'
   # match 'admin_pages/adm_rm_file/:name', to: 'admin_pages#rm_uploaded_file', via: :delete, as: 'adm_rm_file'
-  match 'admin_pages/adm_rm_file', to: 'admin_pages#rm_uploaded_file', via: :delete, as: 'adm_rm_file' # Pass file name via query string
+  match 'admin_pages/adm_rm_file' , to: 'admin_pages#rm_uploaded_file', via: :delete, as: 'adm_rm_file' # Pass file name via query string
+  # match 'admin_pages/adm_toggle_fileact', to: 'admin_pages#toggle_file_act', via: :post, as: 'adm_toggle_act'
 
   resources :tags
+  resources :userpages
 
   get 'fixed_static_pages/home'
   get 'fixed_static_pages/contact'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140819124735) do
+ActiveRecord::Schema.define(version: 20150107115029) do
 
   create_table "tags", force: true do |t|
     t.string   "name"
@@ -21,5 +21,17 @@ ActiveRecord::Schema.define(version: 20140819124735) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name"
+
+  create_table "userpages", force: true do |t|
+    t.string   "filename"
+    t.string   "linkname"
+    t.integer  "seqno"
+    t.datetime "valid_from"
+    t.datetime "valid_to"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "userpages", ["filename"], name: "index_userpages_on_filename"
 
 end
