@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   post 'admin_pages/adm_logout'
   get 'admin_pages/home'
   match 'admin_pages/adm_upload_selected', to: 'admin_pages#adm_upload_selected', via: 'post', as: 'adm_upload_selected'
+  # match 'admin_pages/adm_rm_file/:name', to: 'admin_pages#rm_uploaded_file', via: :delete, as: 'adm_rm_file'
+  match 'admin_pages/adm_rm_file', to: 'admin_pages#rm_uploaded_file', via: :delete, as: 'adm_rm_file' # Pass file name via query string
 
   resources :tags
 

@@ -10,7 +10,7 @@ class AdminPagesController < ApplicationController
     end
   end
 
-  before_action only: [:adm_upload_selected] do
+  before_action only: [:adm_upload_selected, :rm_uploaded_file] do
       unless File.directory? AMP_DIR
         logger.error("Directory #{AMP_DIR} has disappeared")
         flash[:error]="Jemand hat das Directory #{AMP_DIR} gelöscht! Rufen Sie die Polizei!"
@@ -62,6 +62,31 @@ class AdminPagesController < ApplicationController
         File.unlink(fpath)
         unless errmsg.nil?
             flash.now[:error]=errmsg
+        end
+      end
+      prepare_admin_home_data
+      render admin_pages_home_path
+  end
+
+  # params[:name] : Name of file to be deleted (without path component)
+  def rm_uploaded_file
+      deleatur=params[:name]
+      # Plausibility check: must not go updir
+      if deleatur.nil? or deleatur.include?('..')
+        flash.now[:error]="Suspicious file! .... "+deleatur.to_s
+      else
+        fpath="#{AMP_DIR}/#{deleatur}"
+        if File.file?(fpath)
+            begin
+                File.delete(fpath)
+                flash.now[:success]="Die Datei #{deleatur} ist entfernt worden"
+            rescue Errno::ENOENT
+                flash.now[:warning]="Die Datei #{deleatur} ist in diesem Moment verschwunden"
+            rescue Exception => e
+                flash.now[:error]="Exception #{e.class.to_s} : #{e.message}"
+            end
+        else
+            flash.now[:warning]="Die Datei #{deleatur} existiert nicht mehr"
         end
       end
       prepare_admin_home_data

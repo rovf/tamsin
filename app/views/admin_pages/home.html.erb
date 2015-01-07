@@ -21,8 +21,10 @@ This is in admin_pages/home
     Verfügbare Seiten:
     <% @pages.each do |fn| %>
         <br>
-        <!-- img src="/assets/icons/mac_trashcan_full_new.ico" height="24" alt="löschen" title="Datei entfernen" -->
-        <%= image_tag('icons/mac_trashcan_full_new.png', {height:32, alt:'Löschen?'}) %> <span class="fn_list"><%= fn %></span>
+        <% fn_bn=File::basename(fn) %>
+        <%= link_to(image_tag('icons/mac_trashcan_full_new.png', {height:32, alt:'Löschen?'}), adm_rm_file_path(:name => fn_bn), :method => 'delete') %>
+            <!-- img src="/assets/icons/mac_trashcan_full_new.ico" height="24" alt="löschen" title="Datei entfernen" -->
+        <span class="fn_list"><%= fn_bn %></span>
     <% end %>
     </div>
 <% end %>
