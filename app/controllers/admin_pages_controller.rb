@@ -54,14 +54,23 @@ class AdminPagesController < ApplicationController
       if params[:upload].nil?
         flash.now[:error]='Es wäre schon gut, vor dem Upload eine Datei auszuwählen'
       else
-        errmsg=nil
         fpath=params[:upload].tempfile
+        fbasename=File.basename(params[:upload].original_filename)
         # tempf=File.open(fpath,'r:BOM|UTF-8')
-        FileUtils.cp fpath, AMP_DIR+'/'+File.basename(params[:upload].original_filename) # Throws exception if it fails
+        FileUtils.cp fpath, AMP_DIR+'/'+fbasename # Throws exception if it fails
         # tempf.close
-        File.unlink(fpath)
-        unless errmsg.nil?
-            flash.now[:error]=errmsg
+        File.unlink(fpath) # Throws exception if it fails
+        # Put information on it into DB.
+        # Only adds to DB if not exists yet, otherwise old entry is kept
+        added_info=Userpage.new_page_with_default(fbasename)
+        if added_info.kind_of?(Array)
+            if added_info.length == 0
+                flash.now[:info]="Neue Version von #{fbasename} gespeichert."
+            else
+                flash.now[:error]="Fehler beim Speichern in die Datenbank: "+added_info.to_sentence
+            end
+        else
+            flash.now[:info]="Datei #{fbasename} gespeichert."
         end
       end
       prepare_admin_home_data
@@ -73,11 +82,13 @@ class AdminPagesController < ApplicationController
       deleatur=params[:name]
       # Plausibility check: must not go updir
       if deleatur.nil? or deleatur.include?('..')
-        flash.now[:error]="Suspicious file! .... "+deleatur.to_s
+        flash[:error]="Suspicious file! .... "+deleatur.to_s
       else
         fpath="#{AMP_DIR}/#{deleatur}"
         if File.file?(fpath)
             begin
+                up=Userpage.find_by_filename(deleatur)
+                up.destroy unless up.nil?
                 File.delete(fpath)
                 flash[:success]="Die Datei #{deleatur} ist entfernt worden"
             rescue Errno::ENOENT

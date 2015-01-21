@@ -22,13 +22,28 @@
 }
 
 .alert {
+    background-color: #444; /* Default, in case we forget a specific alert class */
+    color: #BBB;
     padding: 3px 0 3px 2px;
 }
 
 .alert-error {
-    background: #9b5ba0;
+    background-color: #9b5ba0;
     color: white;
     font-weight: bold;
+}
+.alert-warning {
+    background-color: #082624;
+    color: blue;
+    font-weight: bold;
+}
+.alert-success {
+    background-color: white;
+    color: #d45856;
+}
+.alert-info {
+    background-color: white;
+    color: #d5a199;
 }
 
 .admlink {
